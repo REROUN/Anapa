@@ -28,6 +28,14 @@
         android:background="#000"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/camerachage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Switch Camera"
+            android:layout_gravity="center"/>
+
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="0dp"

@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.widget.Spinner
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 
 class AAction : AppCompatActivity(), OnItemSelectedListener{
@@ -29,6 +30,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var graphicOverlay: GraphicOverlay_Aaction
     private var selectedModel = FORWARD_FLEXION
+    private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
 
         val spinner = findViewById<Spinner>(R.id.spinner)
         val options: MutableList<String> = ArrayList()
+        val camerachage = findViewById<Button>(R.id.camerachage)
         options.add(FORWARD_FLEXION)
         options.add(EXTERNAL_ROTATION)
         options.add(INTERNAL_ROTATION)
@@ -51,6 +54,10 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
         spinner.adapter = dataAdapter
         spinner.onItemSelectedListener = this
 
+        camerachage.setOnClickListener {
+            toggleCamera()
+        }
+
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
@@ -59,6 +66,15 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
         cameraExecutor = Executors.newSingleThreadExecutor()
+    }
+
+    private fun toggleCamera() {
+        cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+            CameraSelector.DEFAULT_FRONT_CAMERA
+        } else {
+            CameraSelector.DEFAULT_BACK_CAMERA
+        }
+        startCamera()
     }
 
     @Synchronized
@@ -95,7 +111,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
                     it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
                 }
             //Analyzer
-            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA //.DEFAULT_BACK_CAMERA
+            //val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA //.DEFAULT_BACK_CAMERA
             val imageAnalyzer = ImageAnalysis.Builder()
                 .build()
                 .also {
