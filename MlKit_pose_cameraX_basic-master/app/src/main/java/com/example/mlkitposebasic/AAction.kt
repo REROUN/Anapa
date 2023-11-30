@@ -42,8 +42,11 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
         val options: MutableList<String> = ArrayList()
         val camerachage = findViewById<Button>(R.id.camerachage)
         options.add(FORWARD_FLEXION)
+        options.add(SIDEWAYS_FLEXION)
         options.add(EXTERNAL_ROTATION)
         options.add(INTERNAL_ROTATION)
+        options.add(ADDUCTION)
+        options.add(EXTENSION)
 
         // Creating adapter for spinner
         val dataAdapter = ArrayAdapter(this, R.layout.spinner_style, options)
@@ -153,9 +156,12 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
     }
 
     companion object {
-        private const val FORWARD_FLEXION  = "FORWARD_FLEXION"
-        private const val EXTERNAL_ROTATION = "EXTERNAL_ROTATION"
-        private const val INTERNAL_ROTATION = "INTERNAL_ROTATION"
+        private const val FORWARD_FLEXION  = "앞으로 들기"
+        private const val SIDEWAYS_FLEXION = "옆으로 들기"
+        private const val EXTERNAL_ROTATION = "팔꿈치 외회전"
+        private const val INTERNAL_ROTATION = "팔꿈치 내회전"
+        private const val ADDUCTION = "내전"
+        private const val EXTENSION = "뒤로 들기(신전)"
 
         private const val TAG = "PoseDetectBasic"
         private const val REQUEST_CODE_PERMISSIONS = 10

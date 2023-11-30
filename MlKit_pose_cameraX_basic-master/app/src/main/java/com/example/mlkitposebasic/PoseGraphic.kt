@@ -54,12 +54,16 @@ class PoseGraphic internal constructor(
   private val rightPaint = Paint()
   private val whitePaint = Paint()
   private val bluePaint = Paint()
+  private val greenPaint = Paint()
 
   init {
 
     whitePaint.strokeWidth = STROKE_WIDTH
     whitePaint.color = Color.WHITE
     whitePaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
+    greenPaint.strokeWidth = STROKE_WIDTH
+    greenPaint.color = Color.GREEN
+    greenPaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
     bluePaint.strokeWidth = STROKE_WIDTH
     bluePaint.color = Color.BLUE
     bluePaint.textSize = IN_FRAME_LIKELIHOOD_TEXT_SIZE
@@ -88,7 +92,7 @@ class PoseGraphic internal constructor(
     val landmarks = pose.allPoseLandmarks
     if (landmarks.isEmpty()) return
 
-    if (selectedModel == "FORWARD_FLEXION") {
+    if (selectedModel == "앞으로 들기") {
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
@@ -147,10 +151,87 @@ class PoseGraphic internal constructor(
               extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
             )
 
-            val elbowleftshoulderrightshoulder = getAngle(
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_ELBOW),
+            val accuracy = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
               extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
-              extractLandmarkFromType(pose, PoseLandmark.LEFT_SHOULDER)
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            ) / 180 * 100
+
+            whitePaint.setTextSize(100.0F)
+            canvas.drawText(
+              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
+              translateX(landmark.position.x),
+              translateY(landmark.position.y),
+              whitePaint
+            )
+
+            bluePaint.setTextSize(70.0F)
+            canvas.drawText(
+              "정확도 : " + String.format(Locale.US, "%.0f", accuracy) + "%",
+              50F,
+              100F,
+              bluePaint
+            )
+          }
+        }
+      }
+    } else if (selectedModel == "옆으로 들기") {
+      for (landmark in landmarks) { // Draw all the points
+        if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
+          || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
+          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
+          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
+          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
+          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          drawPoint(canvas, landmark, whitePaint)
+        }
+        if (visualizeZ && rescaleZForVisualiz) {
+          zMin = zMin.coerceAtMost(landmark.position3D.z)
+          zMax = zMax.coerceAtLeast(landmark.position3D.z)
+        }
+      }
+
+      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
+      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
+      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
+      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+
+      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+      drawLine(canvas, rightHombro, rightCodo, rightPaint)
+      drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
+      drawLine(canvas, rightHombro, rightCadera, rightPaint)
+      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+
+      fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
+        return pose.getPoseLandmark(landmarkType)
+      }
+
+
+      // Draw inFrameLikelihood for all points
+      if (showInFrameLikelihood) {
+        for (landmark in landmarks) {
+          if (landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER) {
+            val rightHipAnglerightHipAngle = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
             )
 
             val accuracy = getAngle(
@@ -167,14 +248,6 @@ class PoseGraphic internal constructor(
               whitePaint
             )
 
-            whitePaint.setTextSize(100.0F)
-            canvas.drawText(
-              String.format(Locale.US, "%.0f", elbowleftshoulderrightshoulder) + "°",
-              translateX(landmark.position.x) + 200,
-              translateY(landmark.position.y),
-              whitePaint
-            )
-
             bluePaint.setTextSize(70.0F)
             canvas.drawText(
               "정확도 : " + String.format(Locale.US, "%.0f", accuracy) + "%",
@@ -185,7 +258,7 @@ class PoseGraphic internal constructor(
           }
         }
       }
-    } else if (selectedModel == "EXTERNAL_ROTATION") {
+    } else if (selectedModel == "팔꿈치 외회전") {
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
           || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
@@ -270,7 +343,7 @@ class PoseGraphic internal constructor(
           }
         }
       }
-    } else if (selectedModel == "INTERNAL_ROTATION") {
+    } else if (selectedModel == "팔꿈치 내회전") {
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
           || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
@@ -339,6 +412,186 @@ class PoseGraphic internal constructor(
             whitePaint.setTextSize(100.0F)
             canvas.drawText(
               String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°내회전",
+              translateX(landmark.position.x),
+              translateY(landmark.position.y),
+              whitePaint
+            )
+
+            bluePaint.setTextSize(70.0F)
+            canvas.drawText(
+              "정확도 : " + String.format(Locale.US, "%.0f", accuracy) + "%",
+              50F,
+              100F,
+              bluePaint
+            )
+          }
+        }
+      }
+    } else if (selectedModel == "내전") {
+      for (landmark in landmarks) { // Draw all the points
+        if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
+          || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
+          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
+          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
+          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
+          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          drawPoint(canvas, landmark, whitePaint)
+        }
+        if (visualizeZ && rescaleZForVisualiz) {
+          zMin = zMin.coerceAtMost(landmark.position3D.z)
+          zMax = zMax.coerceAtLeast(landmark.position3D.z)
+        }
+      }
+
+      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
+      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
+      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
+      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+
+      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+      drawLine(canvas, rightHombro, rightCodo, rightPaint)
+      drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
+      drawLine(canvas, rightHombro, rightCadera, rightPaint)
+      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+
+      fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
+        return pose.getPoseLandmark(landmarkType)
+      }
+
+
+      // Draw inFrameLikelihood for all points
+      if (showInFrameLikelihood) {
+        for (landmark in landmarks) {
+          if (landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER) {
+            val rightHipAnglerightHipAngle = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            )
+
+            val rightElbowrightShoulderleftShoulderAngle = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_ELBOW),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.LEFT_SHOULDER)
+            )
+
+            val accuracy = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            ) / 180 * 100
+
+            whitePaint.setTextSize(100.0F)
+            canvas.drawText(
+              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
+              translateX(landmark.position.x),
+              translateY(landmark.position.y),
+              whitePaint
+            )
+
+            greenPaint.setTextSize(100.0F)
+            canvas.drawText(
+              String.format(Locale.US, "%.0f", rightElbowrightShoulderleftShoulderAngle) + "°",
+              translateX(landmark.position.x) + 200,
+              translateY(landmark.position.y),
+              greenPaint
+            )
+
+//            bluePaint.setTextSize(70.0F)
+//            canvas.drawText(
+//              "정확도 : " + String.format(Locale.US, "%.0f", accuracy) + "%",
+//              50F,
+//              100F,
+//              bluePaint
+//            )
+          }
+        }
+      }
+    } else if (selectedModel == "뒤로 들기(신전)") {
+      for (landmark in landmarks) { // Draw all the points
+        if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
+          || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
+          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
+          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
+          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
+          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
+          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          drawPoint(canvas, landmark, whitePaint)
+        }
+        if (visualizeZ && rescaleZForVisualiz) {
+          zMin = zMin.coerceAtMost(landmark.position3D.z)
+          zMax = zMax.coerceAtLeast(landmark.position3D.z)
+        }
+      }
+
+      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
+      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
+      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
+      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+
+      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+      drawLine(canvas, rightHombro, rightCodo, rightPaint)
+      drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
+      drawLine(canvas, rightHombro, rightCadera, rightPaint)
+      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+
+      fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
+        return pose.getPoseLandmark(landmarkType)
+      }
+
+
+      // Draw inFrameLikelihood for all points
+      if (showInFrameLikelihood) {
+        for (landmark in landmarks) {
+          if (landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER) {
+            val rightHipAnglerightHipAngle = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            )
+
+            val accuracy = getAngle(
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            ) / 180 * 100
+
+            whitePaint.setTextSize(100.0F)
+            canvas.drawText(
+              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
               translateX(landmark.position.x),
               translateY(landmark.position.y),
               whitePaint
