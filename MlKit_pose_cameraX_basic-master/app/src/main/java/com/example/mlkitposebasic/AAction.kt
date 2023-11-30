@@ -24,6 +24,7 @@ import android.widget.Spinner
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ToggleButton
 
 class AAction : AppCompatActivity(), OnItemSelectedListener{
     private lateinit var binding: ActivityMainBinding
@@ -40,7 +41,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
 
         val spinner = findViewById<Spinner>(R.id.spinner)
         val options: MutableList<String> = ArrayList()
-        val camerachage = findViewById<Button>(R.id.camerachage)
+        val camerachage = findViewById<ToggleButton>(R.id.facing_switch)
         options.add(FORWARD_FLEXION)
         options.add(SIDEWAYS_FLEXION)
         options.add(EXTERNAL_ROTATION)
