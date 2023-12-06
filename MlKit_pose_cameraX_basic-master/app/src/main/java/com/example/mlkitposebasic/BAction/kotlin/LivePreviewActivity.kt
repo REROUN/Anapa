@@ -49,7 +49,7 @@ class LivePreviewActivity :
   private var cameraSource: CameraSource? = null
   private var preview: CameraSourcePreview? = null
   private var graphicOverlay: GraphicOverlay? = null
-  private var selectedModel = POSE_DETECTION
+  private var selectedModel = B1
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -68,7 +68,12 @@ class LivePreviewActivity :
 
     val spinner = findViewById<Spinner>(R.id.spinner)
     val options: MutableList<String> = ArrayList()
-    options.add(POSE_DETECTION)
+    options.add(B1)
+    options.add(B2)
+    options.add(B3)
+    options.add(B4)
+    options.add(B5)
+    options.add(B6)
 
 
     // Creating adapter for spinner
@@ -128,7 +133,7 @@ class LivePreviewActivity :
     }
     try {
       when (model) {
-        POSE_DETECTION -> {
+        B1 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -144,11 +149,111 @@ class LivePreviewActivity :
               visualizeZ,
               rescaleZ,
               runClassification,
-              /* isStreamMode = */ true
+              /* isStreamMode = */ true,
+              selectedModel
             )
           )
-        }
-        else -> Log.e(TAG, "Unknown model: $model")
+        } B2 -> {
+          val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
+          Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
+          val shouldShowInFrameLikelihood =
+            PreferenceUtils.shouldShowPoseDetectionInFrameLikelihoodLivePreview(this)
+          val visualizeZ = PreferenceUtils.shouldPoseDetectionVisualizeZ(this)
+          val rescaleZ = PreferenceUtils.shouldPoseDetectionRescaleZForVisualization(this)
+          val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
+          cameraSource!!.setMachineLearningFrameProcessor(
+            PoseDetectorProcessor(
+              this,
+              poseDetectorOptions,
+              shouldShowInFrameLikelihood,
+              visualizeZ,
+              rescaleZ,
+              runClassification,
+              /* isStreamMode = */ true,
+              selectedModel
+            )
+          )
+        } B3 -> {
+          val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
+          Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
+          val shouldShowInFrameLikelihood =
+            PreferenceUtils.shouldShowPoseDetectionInFrameLikelihoodLivePreview(this)
+          val visualizeZ = PreferenceUtils.shouldPoseDetectionVisualizeZ(this)
+          val rescaleZ = PreferenceUtils.shouldPoseDetectionRescaleZForVisualization(this)
+          val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
+          cameraSource!!.setMachineLearningFrameProcessor(
+            PoseDetectorProcessor(
+              this,
+              poseDetectorOptions,
+              shouldShowInFrameLikelihood,
+              visualizeZ,
+              rescaleZ,
+              runClassification,
+              /* isStreamMode = */ true,
+              selectedModel
+            )
+          )
+        } B4 -> {
+          val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
+          Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
+          val shouldShowInFrameLikelihood =
+            PreferenceUtils.shouldShowPoseDetectionInFrameLikelihoodLivePreview(this)
+          val visualizeZ = PreferenceUtils.shouldPoseDetectionVisualizeZ(this)
+          val rescaleZ = PreferenceUtils.shouldPoseDetectionRescaleZForVisualization(this)
+          val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
+          cameraSource!!.setMachineLearningFrameProcessor(
+            PoseDetectorProcessor(
+              this,
+              poseDetectorOptions,
+              shouldShowInFrameLikelihood,
+              visualizeZ,
+              rescaleZ,
+              runClassification,
+              /* isStreamMode = */ true,
+              selectedModel
+            )
+          )
+        } B5 -> {
+          val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
+          Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
+          val shouldShowInFrameLikelihood =
+            PreferenceUtils.shouldShowPoseDetectionInFrameLikelihoodLivePreview(this)
+          val visualizeZ = PreferenceUtils.shouldPoseDetectionVisualizeZ(this)
+          val rescaleZ = PreferenceUtils.shouldPoseDetectionRescaleZForVisualization(this)
+          val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
+          cameraSource!!.setMachineLearningFrameProcessor(
+            PoseDetectorProcessor(
+              this,
+              poseDetectorOptions,
+              shouldShowInFrameLikelihood,
+              visualizeZ,
+              rescaleZ,
+              runClassification,
+              /* isStreamMode = */ true,
+              selectedModel
+            )
+          )
+        } B6 -> {
+          val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
+          Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
+          val shouldShowInFrameLikelihood =
+            PreferenceUtils.shouldShowPoseDetectionInFrameLikelihoodLivePreview(this)
+          val visualizeZ = PreferenceUtils.shouldPoseDetectionVisualizeZ(this)
+          val rescaleZ = PreferenceUtils.shouldPoseDetectionRescaleZForVisualization(this)
+          val runClassification = PreferenceUtils.shouldPoseDetectionRunClassification(this)
+          cameraSource!!.setMachineLearningFrameProcessor(
+            PoseDetectorProcessor(
+              this,
+              poseDetectorOptions,
+              shouldShowInFrameLikelihood,
+              visualizeZ,
+              rescaleZ,
+              runClassification,
+              /* isStreamMode = */ true,
+              selectedModel
+            )
+          )
+        } else -> Log.e(TAG, "Unknown model: $model")
       }
     } catch (e: Exception) {
       Log.e(TAG, "Can not create image processor: $model", e)
@@ -205,7 +310,12 @@ class LivePreviewActivity :
   }
 
   companion object {
-    private const val POSE_DETECTION = "Pose Detection"
+    private const val B1 = "팔 앞으로 올리기 스트레칭"
+    private const val B2 = "어깨 모으기 스트레칭"
+    private const val B3 = "팔 밖으로 돌리기 스트레칭"
+    private const val B4 = "코너 스트레칭"
+    private const val B5 = "옆으로 누워서 팔 안으로 돌리기 스트레칭"
+    private const val B6 = "팔 뒤로 올리기 스트레칭"
 
     private const val TAG = "LivePreviewActivity"
   }

@@ -40,7 +40,8 @@ class PoseDetectorProcessor(
   private val visualizeZ: Boolean,
   private val rescaleZForVisualization: Boolean,
   private val runClassification: Boolean,
-  private val isStreamMode: Boolean
+  private val isStreamMode: Boolean,
+  private val selectedModel:String,
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
 
   private val detector: PoseDetector
@@ -107,10 +108,11 @@ class PoseDetectorProcessor(
       PoseGraphic(
         graphicOverlay,
         poseWithClassification.pose,
-        showInFrameLikelihood,
+//        showInFrameLikelihood,
         visualizeZ,
         rescaleZForVisualization,
-        poseWithClassification.classificationResult
+        poseWithClassification.classificationResult,
+        selectedModel
       )
     )
   }
