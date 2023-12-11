@@ -96,12 +96,7 @@ class PoseGraphic internal constructor(
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP ) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -110,31 +105,31 @@ class PoseGraphic internal constructor(
         }
       }
 
-      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      //val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      //val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      //val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
       val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+      //val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      //val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      //val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      //val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
-      drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+      //drawLine(canvas, leftHombro, rightHombro, whitePaint)
+      //drawLine(canvas, leftCadera, rightCadera, whitePaint)
+      //drawLine(canvas, leftHombro, leftCodo, leftPaint)
+      //drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+      //drawLine(canvas, leftHombro, leftCadera, leftPaint)
+      //drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+      //drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+      //drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+      //drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
         return pose.getPoseLandmark(landmarkType)
@@ -179,12 +174,7 @@ class PoseGraphic internal constructor(
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP ) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -193,31 +183,31 @@ class PoseGraphic internal constructor(
         }
       }
 
-      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      //val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      //val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      //val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
       val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+      //val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      //val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      //val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      //val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
-      drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+//      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+//      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+//      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+//      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+//      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+//      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+//      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+//      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+//      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
         return pose.getPoseLandmark(landmarkType)
@@ -261,11 +251,7 @@ class PoseGraphic internal constructor(
     } else if (selectedModel == "팔꿈치 외회전") {
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -274,31 +260,31 @@ class PoseGraphic internal constructor(
         }
       }
 
-      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      //val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      //val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      //val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
       val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+      //val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+      //val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+      //val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+      //val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
-      drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+//      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+//      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+//      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+//      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+//      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+//      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+//      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+//      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+//      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       canvas.drawLine(translateX(rightHombro!!.position3D.x), translateY(rightHombro!!.position3D.y), translateX(300.0f),
         translateY(rightHombro!!.position3D.y), rightPaint)
@@ -346,11 +332,7 @@ class PoseGraphic internal constructor(
     } else if (selectedModel == "팔꿈치 내회전") {
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE ) {
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP ) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -359,31 +341,31 @@ class PoseGraphic internal constructor(
         }
       }
 
-      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+      //val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      //val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      //val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
       val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+//      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+//      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+//      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+//      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
-      drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+//      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+//      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+//      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+//      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+//      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+//      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+//      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+//      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+//      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       canvas.drawLine(translateX(rightHombro!!.position3D.x), translateY(rightHombro!!.position3D.y), translateX(300.0f),
         translateY(rightHombro!!.position3D.y), rightPaint)
@@ -431,12 +413,7 @@ class PoseGraphic internal constructor(
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -447,29 +424,29 @@ class PoseGraphic internal constructor(
 
       val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+      //val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
-      val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+//      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+//      val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+//      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+//      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+//      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+//      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
       drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+//      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+//      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+//      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+//      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+//      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+//      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
-      drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+//      drawLine(canvas, rightHombro, rightCadera, rightPaint)
+//      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+//      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
         return pose.getPoseLandmark(landmarkType)
@@ -528,12 +505,7 @@ class PoseGraphic internal constructor(
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.RIGHT_HIP || landmark.landmarkType == PoseLandmark.RIGHT_KNEE ||
-          landmark.landmarkType == PoseLandmark.RIGHT_ANKLE
-          || landmark.landmarkType == PoseLandmark.LEFT_WRIST || landmark.landmarkType == PoseLandmark.LEFT_SHOULDER
-          || landmark.landmarkType == PoseLandmark.LEFT_ELBOW
-          || landmark.landmarkType == PoseLandmark.LEFT_HIP || landmark.landmarkType == PoseLandmark.LEFT_KNEE ||
-          landmark.landmarkType == PoseLandmark.LEFT_ANKLE) {
+          || landmark.landmarkType == PoseLandmark.RIGHT_HIP ) {
           drawPoint(canvas, landmark, whitePaint)
         }
         if (visualizeZ && rescaleZForVisualiz) {
@@ -542,31 +514,31 @@ class PoseGraphic internal constructor(
         }
       }
 
-      val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
+     // val leftHombro = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
       val rightHombro = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
-      val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
+      //val leftCodo = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)
       val rightCodo = pose.getPoseLandmark(PoseLandmark.RIGHT_ELBOW)
-      val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
+     // val leftMuñeca = pose.getPoseLandmark(PoseLandmark.LEFT_WRIST)
       val rightMuñeca = pose.getPoseLandmark(PoseLandmark.RIGHT_WRIST)
-      val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
+      //val leftCadera = pose.getPoseLandmark(PoseLandmark.LEFT_HIP)
       val rightCadera = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
-      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
-      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
-      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
-      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+//      val leftRodilla = pose.getPoseLandmark(PoseLandmark.LEFT_KNEE)
+//      val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
+//      val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
+//      val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
 
-      drawLine(canvas, leftHombro, rightHombro, whitePaint)
-      drawLine(canvas, leftCadera, rightCadera, whitePaint)
-      drawLine(canvas, leftHombro, leftCodo, leftPaint)
-      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
-      drawLine(canvas, leftHombro, leftCadera, leftPaint)
-      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
-      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
+//      drawLine(canvas, leftHombro, rightHombro, whitePaint)
+//      drawLine(canvas, leftCadera, rightCadera, whitePaint)
+//      drawLine(canvas, leftHombro, leftCodo, leftPaint)
+//      drawLine(canvas, leftCodo, leftMuñeca, leftPaint)
+//      drawLine(canvas, leftHombro, leftCadera, leftPaint)
+//      drawLine(canvas, leftCadera, leftRodilla, leftPaint)
+//      drawLine(canvas, leftRodilla, leftTobillo, leftPaint)
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
-      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
-      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
+//      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
+//      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
       fun extractLandmarkFromType(pose: Pose, landmarkType: Int): PoseLandmark? {
         return pose.getPoseLandmark(landmarkType)
