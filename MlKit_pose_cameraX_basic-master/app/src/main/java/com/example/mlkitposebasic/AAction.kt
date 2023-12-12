@@ -84,7 +84,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
     @Synchronized
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
         // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        // parent.getItemAtPosition(pos) no
         selectedModel = parent?.getItemAtPosition(pos).toString()
         Log.d(TAG, "Selected model: $selectedModel")
         startCamera()
