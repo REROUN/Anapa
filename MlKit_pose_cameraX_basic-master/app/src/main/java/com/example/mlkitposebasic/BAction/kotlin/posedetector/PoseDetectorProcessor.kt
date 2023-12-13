@@ -41,7 +41,8 @@ class PoseDetectorProcessor(
   private val rescaleZForVisualization: Boolean,
   private val runClassification: Boolean,
   private val isStreamMode: Boolean,
-  private val selectedModel:String,
+  private val selectedModel: String,
+  private val POSE_SAMPLES_FILE: String
 ) : VisionProcessorBase<PoseDetectorProcessor.PoseWithClassification>(context) {
 
   private val detector: PoseDetector
@@ -72,7 +73,7 @@ class PoseDetectorProcessor(
           var classificationResult: List<String> = ArrayList()
           if (runClassification) {
             if (poseClassifierProcessor == null) {
-              poseClassifierProcessor = PoseClassifierProcessor(context, isStreamMode)
+              poseClassifierProcessor = PoseClassifierProcessor(context, isStreamMode, POSE_SAMPLES_FILE)
             }
             classificationResult = poseClassifierProcessor!!.getPoseResult(pose)
           }
@@ -91,7 +92,7 @@ class PoseDetectorProcessor(
           var classificationResult: List<String> = ArrayList()
           if (runClassification) {
             if (poseClassifierProcessor == null) {
-              poseClassifierProcessor = PoseClassifierProcessor(context, isStreamMode)
+              poseClassifierProcessor = PoseClassifierProcessor(context, isStreamMode, POSE_SAMPLES_FILE)
             }
             classificationResult = poseClassifierProcessor!!.getPoseResult(pose)
           }

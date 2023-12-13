@@ -49,6 +49,12 @@ class LivePreviewActivity :
   private var cameraSource: CameraSource? = null
   private var preview: CameraSourcePreview? = null
   private var graphicOverlay: GraphicOverlay? = null
+  private var B1_POSE_SAMPLES_FILE: String = "pose/B-1_dump_poses_csvs_out.csv"
+  private var B2_POSE_SAMPLES_FILE: String = "pose/B-2_dump_poses_csvs_out.csv"
+  private var B3_POSE_SAMPLES_FILE: String = "pose/B-3_dump_poses_csvs_out.csv"
+  private var B4_POSE_SAMPLES_FILE: String = "pose/B-4_dump_poses_csvs_out.csv"
+  private var B5_POSE_SAMPLES_FILE: String = "pose/B-5_dump_poses_csvs_out.csv"
+  private var B6_POSE_SAMPLES_FILE: String = "pose/B-6_dump_poses_csvs_out.csv"
   private var selectedModel = B1
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,7 +156,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B1_POSE_SAMPLES_FILE
             )
           )
         } B2 -> {
@@ -170,7 +177,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B2_POSE_SAMPLES_FILE
             )
           )
         } B3 -> {
@@ -190,7 +198,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B3_POSE_SAMPLES_FILE
             )
           )
         } B4 -> {
@@ -210,7 +219,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B4_POSE_SAMPLES_FILE
             )
           )
         } B5 -> {
@@ -230,7 +240,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B5_POSE_SAMPLES_FILE
             )
           )
         } B6 -> {
@@ -250,7 +261,8 @@ class LivePreviewActivity :
               rescaleZ,
               runClassification,
               /* isStreamMode = */ true,
-              selectedModel
+              selectedModel,
+              B6_POSE_SAMPLES_FILE
             )
           )
         } else -> Log.e(TAG, "Unknown model: $model")
