@@ -19,11 +19,15 @@ package com.example.mlkitposebasic
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PointF
+import android.util.Log
+import com.google.mlkit.vision.common.PointF3D
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import kotlin.math.atan2
 import java.util.Locale
 import kotlin.math.abs
+import kotlin.math.*
 
 /** Dibuja una pose detectada sobre una vista de tipo {@link GraphicOverlay}.
  * Define un descendiente de GraphicOverlay.Graphic que pueden ser añadidas a un {@link GraphicOverlay}.
@@ -86,6 +90,7 @@ class PoseGraphic internal constructor(
     }
     return result
   }
+
 
 
   override fun draw(canvas: Canvas) { // Type 변수 받아오기
@@ -171,6 +176,36 @@ class PoseGraphic internal constructor(
         }
       }
     } else if (selectedModel == "옆으로 들기") {
+
+      // 각도 계산을 위한 백터 클래스정의
+      data class Vector3D(val x: Float, val y: Float, val z: Float) {
+        fun minus(other: Vector3D): Vector3D {
+          return Vector3D(x - other.x, y - other.y, z - other.z)
+        }
+
+        fun dot(other: Vector3D): Float {
+          return x * other.x + y * other.y + z * other.z
+        }
+
+        fun magnitude(): Float {
+          return sqrt(x.pow(2) + y.pow(2) + z.pow(2))
+        }
+      }
+
+      //각도 계산함=-\][
+      fun getAngle3D(firstPoint: PointF3D, midPoint: PointF3D, lastPoint: PointF3D): Double {
+        val vector1 = Vector3D(lastPoint.x, lastPoint.y, lastPoint.z).minus(Vector3D(midPoint.x, midPoint.y, midPoint.z))
+        val vector2 = Vector3D(firstPoint.x, firstPoint.y, firstPoint.z).minus(Vector3D(midPoint.x, midPoint.y, midPoint.z))
+
+
+        val dotProduct = vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z
+        val magnitudes = sqrt(vector1.x.pow(2) + vector1.y.pow(2) + vector1.z.pow(2)) * sqrt(vector2.x.pow(2) + vector2.y.pow(2) + vector2.z.pow(2))
+
+        val angle = acos(dotProduct / magnitudes)
+        return Math.toDegrees(angle.toDouble())
+      }
+
+
       for (landmark in landmarks) { // Draw all the points
         if (landmark.landmarkType == PoseLandmark.RIGHT_WRIST || landmark.landmarkType == PoseLandmark.RIGHT_ELBOW
           || landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER
@@ -195,6 +230,14 @@ class PoseGraphic internal constructor(
       //val rightRodilla = pose.getPoseLandmark(PoseLandmark.RIGHT_KNEE)
       //val leftTobillo = pose.getPoseLandmark(PoseLandmark.LEFT_ANKLE)
       //val rightTobillo = pose.getPoseLandmark(PoseLandmark.RIGHT_ANKLE)
+      val rightHip = pose.getPoseLandmark(PoseLandmark.RIGHT_HIP)
+
+      var modifiedRightHipX=0.0F
+      var rightHipY=0.0F
+      if (rightHombro != null && rightCadera != null) {
+        modifiedRightHipX = rightHombro.getPosition().x
+        rightHipY = rightCadera.getPosition().y
+      }
 
 //      drawLine(canvas, leftHombro, rightHombro, whitePaint)
 //      drawLine(canvas, leftCadera, rightCadera, whitePaint)
@@ -206,6 +249,8 @@ class PoseGraphic internal constructor(
       drawLine(canvas, rightHombro, rightCodo, rightPaint)
       drawLine(canvas, rightCodo, rightMuñeca, rightPaint)
       drawLine(canvas, rightHombro, rightCadera, rightPaint)
+
+
 //      drawLine(canvas, rightCadera, rightRodilla, rightPaint)
 //      drawLine(canvas, rightRodilla, rightTobillo, rightPaint)
 
@@ -218,21 +263,32 @@ class PoseGraphic internal constructor(
       if (showInFrameLikelihood) {
         for (landmark in landmarks) {
           if (landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER) {
-            val rightHipAnglerightHipAngle = getAngle(
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+            val modifiedRightHipPosition = PointF3D.from(modifiedRightHipX, rightHip!!.getPosition().y, rightHip.getPosition3D().z)
+
+//
+//            val rightHipAnglerightHipAngle = getAngle(
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+//            )
+//
+//            val accuracy = getAngle(
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+//            ) / 180 * 100
+            val rightHipAngle = getAngle3D(
+              modifiedRightHipPosition,
+              rightHombro!!.getPosition3D(),
+              rightMuñeca!!.getPosition3D()
             )
 
-            val accuracy = getAngle(
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
-            ) / 180 * 100
+            val accuracy = rightHipAngle / 180 * 100
+
 
             whitePaint.setTextSize(100.0F)
             canvas.drawText(
-              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
+              String.format(Locale.US, "%.0f", rightHipAngle) + "°",
               translateX(landmark.position.x),
               translateY(landmark.position.y),
               whitePaint
