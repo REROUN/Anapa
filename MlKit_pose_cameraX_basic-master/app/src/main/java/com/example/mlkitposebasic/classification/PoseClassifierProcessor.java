@@ -43,18 +43,24 @@ public class PoseClassifierProcessor {
   // Specify classes for which we want rep counting.
   // These are the labels in the given {@code POSE_SAMPLES_FILE}. You can set your own class labels
   // for your pose samples.
-  private static final String TOP_CLASS = "top";
-//  private static final String BOTTOM_CLASS = "bottom";
+  private static final String TOP_CLASS = "top"; // 팔 내렸을 때
+  private static final String BOTTOM_CLASS = "bottom"; // 팔 올렸을 때
+  private static final String A_CLASS = "A";
+  private static final String B_CLASS = "B";
   private static final String[] POSE_CLASSES = {
-          TOP_CLASS, "B"
+          TOP_CLASS, BOTTOM_CLASS, A_CLASS, B_CLASS
   };
-
+//  TOP_CLASS, BOTTOM_CLASS, A_CLASS, B_CLASS
+  private boolean TopACount = false;
+  private boolean BottomBCount = false;
   private final boolean isStreamMode;
 
   private EMASmoothing emaSmoothing;
   private List<RepetitionCounter> repCounters;
   private PoseClassifier poseClassifier;
   private String lastRepResult;
+
+  private int actionCount = 0;
 
   @WorkerThread
   public PoseClassifierProcessor(Context context, boolean isStreamMode, String POSE_SAMPLES_FILE) {
@@ -104,7 +110,6 @@ public class PoseClassifierProcessor {
    */
   @WorkerThread
   public List<String> getPoseResult(Pose pose) {
-
     Preconditions.checkState(Looper.myLooper() != Looper.getMainLooper());
     List<String> result = new ArrayList<>();
 
@@ -125,19 +130,28 @@ public class PoseClassifierProcessor {
         int repsBefore = repCounter.getNumRepeats();
         int repsAfter = repCounter.addClassificationResult(classification);
         if (repsAfter > repsBefore) {
-          // Play a fun beep when rep counter updates.
-          ToneGenerator tg = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100);
-          tg.startTone(ToneGenerator.TONE_PROP_BEEP);
-          if (repsAfter < 10) {
-            lastRepResult = String.format(
-                    Locale.US, "Internal Rotation : %d / 10", repsAfter); // repCounter.getClassName(), reps
-          } else {
-            lastRepResult = String.format(
-                    Locale.US, "완료"); // reps
+          if (repCounter.getClassName() == TOP_CLASS || repCounter.getClassName() == A_CLASS) {
+            this.TopACount = true;
+          } else if (repCounter.getClassName() == BOTTOM_CLASS || repCounter.getClassName() == B_CLASS) {
+            this.BottomBCount = true;
           }
           break;
         }
       }
+
+      if (TopACount & BottomBCount) {
+        actionCount++;
+        this.TopACount = false;
+        this.BottomBCount = false;
+      }
+      if (actionCount < 10) {
+        lastRepResult = String.format(
+                Locale.US, "자세 횟수 : %d / 10", actionCount); // repCounter.getClassName() repsAfter repsBefore
+      } else {
+        lastRepResult = String.format(
+                Locale.US, "완료"); // reps
+      }
+
       result.add(lastRepResult);
     }
 

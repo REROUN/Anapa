@@ -286,12 +286,12 @@ class PoseGraphic internal constructor(
             val accuracy = rightHipAngle / 180 * 100
 
 
-            whitePaint.setTextSize(100.0F)
+            bluePaint.setTextSize(100.0F)
             canvas.drawText(
               String.format(Locale.US, "%.0f", rightHipAngle) + "°",
               translateX(landmark.position.x),
               translateY(landmark.position.y),
-              whitePaint
+              bluePaint
             )
 
             bluePaint.setTextSize(70.0F)
@@ -513,11 +513,11 @@ class PoseGraphic internal constructor(
       if (showInFrameLikelihood) {
         for (landmark in landmarks) {
           if (landmark.landmarkType == PoseLandmark.RIGHT_SHOULDER) {
-            val rightHipAnglerightHipAngle = getAngle(
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
-              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
-            )
+//            val rightHipAnglerightHipAngle = getAngle(
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_HIP),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_SHOULDER),
+//              extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
+//            )
 
             val rightElbowrightShoulderleftShoulderAngle = getAngle(
               extractLandmarkFromType(pose, PoseLandmark.RIGHT_ELBOW),
@@ -531,13 +531,13 @@ class PoseGraphic internal constructor(
               extractLandmarkFromType(pose, PoseLandmark.RIGHT_WRIST)
             ) / 180 * 100
 
-            whitePaint.setTextSize(100.0F)
-            canvas.drawText(
-              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
-              translateX(landmark.position.x),
-              translateY(landmark.position.y),
-              whitePaint
-            )
+//            whitePaint.setTextSize(100.0F)
+//            canvas.drawText(
+//              String.format(Locale.US, "%.0f", rightHipAnglerightHipAngle) + "°",
+//              translateX(landmark.position.x),
+//              translateY(landmark.position.y),
+//              whitePaint
+//            )
 
             greenPaint.setTextSize(100.0F)
             canvas.drawText(

@@ -24,6 +24,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.example.mlkitposebasic.BAction.GraphicOverlay
 import com.example.mlkitposebasic.classification.PoseClassifierProcessor
 import com.example.mlkitposebasic.BAction.kotlin.VisionProcessorBase
+
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseDetection
 import com.google.mlkit.vision.pose.PoseDetector
@@ -49,6 +50,7 @@ class PoseDetectorProcessor(
   private val classificationExecutor: Executor
 
   private var poseClassifierProcessor: PoseClassifierProcessor? = null
+  //private var sd: ShareData? = null
 
   /** Internal class to hold Pose and classification results. */
   class PoseWithClassification(val pose: Pose, val classificationResult: List<String>)
@@ -75,6 +77,7 @@ class PoseDetectorProcessor(
             if (poseClassifierProcessor == null) {
               poseClassifierProcessor = PoseClassifierProcessor(context, isStreamMode, POSE_SAMPLES_FILE)
             }
+            //sd = ShareData()
             classificationResult = poseClassifierProcessor!!.getPoseResult(pose)
           }
           PoseWithClassification(pose, classificationResult)
