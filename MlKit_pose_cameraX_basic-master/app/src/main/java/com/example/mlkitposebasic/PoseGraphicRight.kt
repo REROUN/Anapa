@@ -19,14 +19,11 @@ package com.example.mlkitposebasic
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PointF
-import android.util.Log
 import com.google.mlkit.vision.common.PointF3D
 import com.google.mlkit.vision.pose.Pose
 import com.google.mlkit.vision.pose.PoseLandmark
 import kotlin.math.atan2
 import java.util.Locale
-import kotlin.math.abs
 import kotlin.math.*
 
 /** Dibuja una pose detectada sobre una vista de tipo {@link GraphicOverlay}.
@@ -42,7 +39,7 @@ import kotlin.math.*
  *                           IN_IN_FRAME_LIKELIHOOD, no se pinta la línea
  * */
 
-class PoseGraphic internal constructor(
+class PoseGraphicRight internal constructor(
     overlay: GraphicOverlay_Aaction,
     private val pose: Pose,
     private val showInFrameLikelihood: Boolean = true,

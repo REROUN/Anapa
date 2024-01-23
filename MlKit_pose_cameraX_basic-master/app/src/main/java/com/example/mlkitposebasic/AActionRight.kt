@@ -22,11 +22,9 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import android.widget.Spinner
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.ToggleButton
 
-class AAction : AppCompatActivity(), OnItemSelectedListener{
+class AActionRight : AppCompatActivity(), OnItemSelectedListener{
     private lateinit var binding: ActivityMainBinding
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var graphicOverlay: GraphicOverlay_Aaction
@@ -120,7 +118,7 @@ class AAction : AppCompatActivity(), OnItemSelectedListener{
                 .build()
                 .also {
                     val isImageFlipped = cameraSelector.lensFacing == CameraSelector.LENS_FACING_FRONT
-                    it.setAnalyzer(cameraExecutor, PoseAnalyzer (graphicOverlay, isImageFlipped, selectedModel){
+                    it.setAnalyzer(cameraExecutor, PoseAnalyzer (graphicOverlay, isImageFlipped, selectedModel, "Right"){
                             hayPersona -> Log.d(TAG, "Se detecta persona: $hayPersona")
                     })
                 }

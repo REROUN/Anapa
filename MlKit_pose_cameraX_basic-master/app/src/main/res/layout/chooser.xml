@@ -8,16 +8,29 @@
     tools:ignore="MissingDefaultResource">
 
 
-
     <Button
-        android:id="@+id/Abutton"
+        android:id="@+id/ARightbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="A 동작"
+        android:text="A 동작 - 오른쪽"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.902"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <Button
+        android:id="@+id/ALeftbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A 동작 - 왼쪽"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
     <Button
         android:id="@+id/Bbutton"

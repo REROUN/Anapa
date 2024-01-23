@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.mlkitposebasic.kotlin.LivePreviewActivity;
 
@@ -16,12 +14,22 @@ public class Chooser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chooser);
 
-        Button AButton = (Button) findViewById(R.id.Abutton);
-        AButton.setOnClickListener(new View.OnClickListener(){
+        Button ARightButton = (Button) findViewById(R.id.ARightbutton);
+        ARightButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View View) {
-                Intent intent = new Intent(getApplicationContext(), AAction.class);
+                Intent intent = new Intent(getApplicationContext(), AActionRight.class);
+                startActivity(intent);
+            }
+        });
+
+        Button ALeftButton = (Button) findViewById(R.id.ALeftbutton);
+        ALeftButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View View) {
+                Intent intent = new Intent(getApplicationContext(), AActionLeft.class);
                 startActivity(intent);
             }
         });

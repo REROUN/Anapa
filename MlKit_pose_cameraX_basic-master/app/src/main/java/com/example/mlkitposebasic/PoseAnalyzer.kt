@@ -1,7 +1,6 @@
 package com.example.mlkitposebasic
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
@@ -24,6 +23,7 @@ typealias PoseResultListener = (seDetectaPersona : Boolean) -> Unit //Informaci√
 class PoseAnalyzer(private val graphicOverlay: GraphicOverlay_Aaction,
                    private val isImageFlipped: Boolean,
                    private val selectedModel:String,
+                   private val RightLeftMode:String,
                    val listener: PoseResultListener ) : ImageAnalysis.Analyzer {
     private val options = AccuratePoseDetectorOptions.Builder()
         .setDetectorMode(AccuratePoseDetectorOptions.STREAM_MODE)
@@ -62,16 +62,29 @@ class PoseAnalyzer(private val graphicOverlay: GraphicOverlay_Aaction,
                         listener(false)
                     else {
                         listener(true)
-                        val poseGraphic = PoseGraphic(
-                            graphicOverlay,
-                            pose,
-                            showInFrameLikelihood = true,
-                            visualizeZ= true,
-                            rescaleZForVisualiz= true,
-                            drawUnlikelyLines = true,
-                            selectedModel
-                        )
-                        graphicOverlay.add(poseGraphic)
+                        if (RightLeftMode.equals("Right")) {
+                            val poseGraphic = PoseGraphicRight(
+                                graphicOverlay,
+                                pose,
+                                showInFrameLikelihood = true,
+                                visualizeZ = true,
+                                rescaleZForVisualiz = true,
+                                drawUnlikelyLines = true,
+                                selectedModel
+                            )
+                            graphicOverlay.add(poseGraphic)
+                        } else if (RightLeftMode.equals("Left")) {
+                            val poseGraphic = PoseGraphicLeft(
+                                graphicOverlay,
+                                pose,
+                                showInFrameLikelihood = true,
+                                visualizeZ = true,
+                                rescaleZForVisualiz = true,
+                                drawUnlikelyLines = true,
+                                selectedModel
+                            )
+                            graphicOverlay.add(poseGraphic)
+                        }
                     }
                     imageProxy.close()
                 }
