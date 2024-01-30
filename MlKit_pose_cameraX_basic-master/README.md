@@ -32,7 +32,7 @@ Mejoras varias:
 -GraphicOverlay: La clase Preconditions se implementa con Log.e
 -GraphicOverlay: En el commit anterior se comentó la llamada a Int.constrainToRange al no encotrarse el paquete. Para solucionarlo se define esta función.
 -Se saca la clase PoseAnalyzer de MainActivity
--PoseGraphic: Se traduce las partes del cuerpo (Knee -> Rodilla)
+-PoseGraphic: Se traduce las partes del cuerpo (Knee -> Knee)
 -Se cambian varias declaraciones de Kotlin para seguir las recomendaciones
 
 #COMMIT 6:
