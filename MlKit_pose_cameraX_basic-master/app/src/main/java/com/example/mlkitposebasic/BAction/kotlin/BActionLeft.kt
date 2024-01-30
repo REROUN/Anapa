@@ -43,7 +43,7 @@ import java.util.ArrayList
 
 /** Live preview demo for ML Kit APIs. */
 @KeepName
-class LivePreviewActivity :
+class BActionLeft :
   AppCompatActivity(), OnItemSelectedListener, CompoundButton.OnCheckedChangeListener {
 
   private var cameraSource: CameraSource? = null

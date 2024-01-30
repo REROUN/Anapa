@@ -7,7 +7,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mlkitposebasic.kotlin.LivePreviewActivity;
+import com.example.mlkitposebasic.kotlin.BActionLeft;
+import com.example.mlkitposebasic.kotlin.BActionRight;
 
 public class Chooser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,20 @@ public class Chooser extends AppCompatActivity {
             }
         });
 
-        Button BButton = (Button) findViewById(R.id.Bbutton);
-        BButton.setOnClickListener(new View.OnClickListener() {
+        Button BRightButton = (Button) findViewById(R.id.BRightbutton);
+        BRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LivePreviewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BActionRight.class);
+                startActivity(intent);
+            }
+        });
+
+        Button BLeftButton = (Button) findViewById(R.id.BLeftbutton);
+        BLeftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BActionLeft.class);
                 startActivity(intent);
             }
         });

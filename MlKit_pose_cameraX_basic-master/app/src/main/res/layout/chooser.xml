@@ -33,16 +33,28 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/Bbutton"
+        android:id="@+id/BRightbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="B 동작"
+        android:text="B 동작 - 오른쪽"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.569" />
+
+    <Button
+        android:id="@+id/BLeftbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B 동작 - 왼쪽"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.639" />
 
     <ImageView
         android:id="@+id/imageView"
