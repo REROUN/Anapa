@@ -43,16 +43,15 @@ public class PoseClassifierProcessor {
   // Specify classes for which we want rep counting.
   // These are the labels in the given {@code POSE_SAMPLES_FILE}. You can set your own class labels
   // for your pose samples.
-  private static final String TOP_CLASS = "top"; // 팔 내렸을 때
-  private static final String BOTTOM_CLASS = "bottom"; // 팔 올렸을 때
+
   private static final String A_CLASS = "A";
   private static final String B_CLASS = "B";
   private static final String[] POSE_CLASSES = {
-          TOP_CLASS, BOTTOM_CLASS, A_CLASS, B_CLASS
+          A_CLASS, B_CLASS
   };
 //  TOP_CLASS, BOTTOM_CLASS, A_CLASS, B_CLASS
-  private boolean TopACount = false;
-  private boolean BottomBCount = false;
+  private boolean ACount = false;
+  private boolean BCount = false;
   private final boolean isStreamMode;
 
   private EMASmoothing emaSmoothing;
@@ -130,19 +129,19 @@ public class PoseClassifierProcessor {
         int repsBefore = repCounter.getNumRepeats();
         int repsAfter = repCounter.addClassificationResult(classification);
         if (repsAfter > repsBefore) {
-          if (repCounter.getClassName() == TOP_CLASS || repCounter.getClassName() == A_CLASS) {
-            this.TopACount = true;
-          } else if (repCounter.getClassName() == BOTTOM_CLASS || repCounter.getClassName() == B_CLASS) {
-            this.BottomBCount = true;
+          if (repCounter.getClassName() == A_CLASS) {
+            this.ACount = true;
+          } else if (repCounter.getClassName() == B_CLASS) {
+            this.BCount = true;
           }
           break;
         }
       }
 
-      if (TopACount & BottomBCount) {
+      if (ACount && BCount) {
         actionCount++;
-        this.TopACount = false;
-        this.BottomBCount = false;
+        this.ACount = false;
+        this.BCount = false;
       }
       if (actionCount < 10) {
         lastRepResult = String.format(

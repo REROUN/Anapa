@@ -152,7 +152,7 @@ internal constructor(
 //          }
 //        }
 //      }
-
+//
 //      val leftShoulder = pose.getPoseLandmark(PoseLandmark.LEFT_SHOULDER)
 //      val rightShoulder = pose.getPoseLandmark(PoseLandmark.RIGHT_SHOULDER)
 //      val leftElbow = pose.getPoseLandmark(PoseLandmark.LEFT_ELBOW)

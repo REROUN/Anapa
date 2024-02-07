@@ -49,12 +49,12 @@ class BActionRight :
   private var cameraSource: CameraSource? = null
   private var preview: CameraSourcePreview? = null
   private var graphicOverlay: GraphicOverlay? = null
-  private var B1_POSE_SAMPLES_FILE: String = "pose/B-1_dump_poses_csvs_out.csv"
-  private var B2_POSE_SAMPLES_FILE: String = "pose/B-2_dump_poses_csvs_out.csv"
-  private var B3_POSE_SAMPLES_FILE: String = "pose/B-3_dump_poses_csvs_out.csv"
-  private var B4_POSE_SAMPLES_FILE: String = "pose/B-4_dump_poses_csvs_out.csv"
-  private var B5_POSE_SAMPLES_FILE: String = "pose/B-5_dump_poses_csvs_out.csv"
-  private var B6_POSE_SAMPLES_FILE: String = "pose/B-6_dump_poses_csvs_out.csv"
+  private var B1_POSE_SAMPLES_FILE: String = "pose/B-1_right_dump_poses_csvs_out.csv"
+  private var B2_POSE_SAMPLES_FILE: String = "pose/B-2_right_dump_poses_csvs_out.csv"
+  private var B3_POSE_SAMPLES_FILE: String = "pose/B-3_right_dump_poses_csvs_out.csv"
+  private var B4_POSE_SAMPLES_FILE: String = "pose/B-4_right_dump_poses_csvs_out.csv"
+  private var B5_POSE_SAMPLES_FILE: String = "pose/B-5_right_dump_poses_csvs_out.csv"
+  private var B10_POSE_SAMPLES_FILE: String = "pose/B-10_right_dump_poses_csvs_out.csv"
   private var selectedModel = B1
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +79,7 @@ class BActionRight :
     options.add(B3)
     options.add(B4)
     options.add(B5)
-    options.add(B6)
+    options.add(B10)
 
 
     // Creating adapter for spinner
@@ -160,7 +160,8 @@ class BActionRight :
               B1_POSE_SAMPLES_FILE
             )
           )
-        } B2 -> {
+        }
+        B2 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -181,7 +182,8 @@ class BActionRight :
               B2_POSE_SAMPLES_FILE
             )
           )
-        } B3 -> {
+        }
+        B3 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -202,7 +204,8 @@ class BActionRight :
               B3_POSE_SAMPLES_FILE
             )
           )
-        } B4 -> {
+        }
+        B4 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -223,7 +226,8 @@ class BActionRight :
               B4_POSE_SAMPLES_FILE
             )
           )
-        } B5 -> {
+        }
+        B5 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -244,7 +248,8 @@ class BActionRight :
               B5_POSE_SAMPLES_FILE
             )
           )
-        } B6 -> {
+        }
+        B10 -> {
           val poseDetectorOptions = PreferenceUtils.getPoseDetectorOptionsForLivePreview(this)
           Log.i(TAG, "Using Pose Detector with options $poseDetectorOptions")
           val shouldShowInFrameLikelihood =
@@ -262,10 +267,11 @@ class BActionRight :
               runClassification,
               /* isStreamMode = */ true,
               selectedModel,
-              B6_POSE_SAMPLES_FILE
+              B10_POSE_SAMPLES_FILE
             )
           )
-        } else -> Log.e(TAG, "Unknown model: $model")
+        }
+        else -> Log.e(TAG, "Unknown model: $model")
       }
     } catch (e: Exception) {
       Log.e(TAG, "Can not create image processor: $model", e)
@@ -327,7 +333,8 @@ class BActionRight :
     private const val B3 = "팔 밖으로 돌리기 스트레칭"
     private const val B4 = "코너 스트레칭"
     private const val B5 = "옆으로 누워서 팔 안으로 돌리기 스트레칭"
-    private const val B6 = "팔 뒤로 올리기 스트레칭"
+    private const val B10 = "팔 뒤로 올리기 스트레칭"
+
 
     private const val TAG = "LivePreviewActivity"
   }
